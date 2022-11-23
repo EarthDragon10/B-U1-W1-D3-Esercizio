@@ -14,74 +14,85 @@ namespace B_U1_W1_D3_Esercizio
         {
             bool controlAperturaConto = false;
             int numeroAccessoConto = 0;
-            List<int> listaScelta = new List<int>();
+            // List<int> listaScelta = new List<int>();
             ContoCorrente contoCorrente = new ContoCorrente();
             DettagliConto dettagliConto = new DettagliConto();
             dettagliConto.Cliente = new IntestatarioConto();
 
-            int scelta = AzioniSportelloCC();
+          int scelta = AzioniSportelloCC();
+            while (scelta < 4) { 
+                if (scelta == 1)
+                {
+                    numeroAccessoConto += 1;
 
-            if(scelta == 1)
-            {
-                numeroAccessoConto += 1;
-            
-                contoCorrente.CheckAperturaConto(controlAperturaConto);
-
-          
-
-                dettagliConto.NumeroConto = 22571152;
-                dettagliConto.SaldoCorrente = 0;
-
-              
-
-                Console.WriteLine("\nInserisci il nome");
-                dettagliConto.Cliente.Nome = Console.ReadLine();
-
-                Console.WriteLine("\nInserisci il cognome");
-                dettagliConto.Cliente.Cognome = Console.ReadLine();
-
-                controlAperturaConto = true;
-                
-                Console.WriteLine($"Conto corrente nr. {dettagliConto.NumeroConto} intestato a: {dettagliConto.Cliente.Cognome} {dettagliConto.Cliente.Nome} aperto correttamente");
+                    if(numeroAccessoConto == 1) {
+                        dettagliConto.NumeroConto = 22571152;
+                        dettagliConto.SaldoCorrente = 0;
 
 
-                dettagliConto.SaldoCorrente = contoCorrente.Versamento(controlAperturaConto);
 
-                Console.WriteLine($"Nuovo saldo del CC odienro: {dettagliConto.SaldoCorrente} euro");
+                        Console.WriteLine("\nInserisci il nome");
+                        dettagliConto.Cliente.Nome = Console.ReadLine();
 
-                scelta = AzioniSportelloCC();
+                        Console.WriteLine("\nInserisci il cognome");
+                        dettagliConto.Cliente.Cognome = Console.ReadLine();
+
+                        Console.WriteLine($"Conto corrente nr. {dettagliConto.NumeroConto} intestato a: {dettagliConto.Cliente.Cognome} {dettagliConto.Cliente.Nome} aperto correttamente");
+
+
+                        dettagliConto.SaldoCorrente = contoCorrente.Versamento(controlAperturaConto, numeroAccessoConto);
+
+                        controlAperturaConto = true;
+
+                        Console.WriteLine($"Nuovo saldo del CC odienro: {dettagliConto.SaldoCorrente} euro");
+                    } else { contoCorrente.CheckAperturaConto(controlAperturaConto); }
+                    
+
+                    
+
+                    scelta = AzioniSportelloCC();
+                }
+
+                if (scelta == 2)
+                {
+                    if (dettagliConto.SaldoCorrente > 0)
+                    {
+                        numeroAccessoConto += 1;
+                    }
+
+                    dettagliConto.SaldoCorrente += contoCorrente.Versamento(controlAperturaConto, numeroAccessoConto);
+                 
+
+                    Console.WriteLine($"Conto corrente nr. {dettagliConto.NumeroConto} intestato a: {dettagliConto.Cliente.Cognome} {dettagliConto.Cliente.Nome} aperto correttamente");
+                    Console.WriteLine($"Nuovo saldo del CC odienro: {dettagliConto.SaldoCorrente} euro");
+
+                    scelta = AzioniSportelloCC();
+                }
+
+                if (scelta == 3)
+                {
+                    dettagliConto.SaldoCorrente -= contoCorrente.Prelevamento(controlAperturaConto);
+                    Console.WriteLine($"Conto corrente nr. {dettagliConto.NumeroConto} intestato a: {dettagliConto.Cliente.Cognome} {dettagliConto.Cliente.Nome} aperto correttamente");
+                    Console.WriteLine($"Nuovo saldo del CC odienro: {dettagliConto.SaldoCorrente} euro");
+                    scelta = AzioniSportelloCC();
+                }
+
+                if (scelta == 4)
+                {
+                    Console.WriteLine("Fine Operazioni Sportello Bank");
+                    Console.ReadLine();
+                }
+
+                if (scelta > 4)
+                {
+                    Console.WriteLine("Operazione sbagliata, riprovare.");
+                    scelta = AzioniSportelloCC();
+                }
             }
-        
-            if(scelta == 2)
-            {
-                dettagliConto.SaldoCorrente = contoCorrente.Versamento(numeroAccessoConto);
-                Console.WriteLine($"Conto corrente nr. {dettagliConto.NumeroConto} intestato a: {dettagliConto.Cliente.Cognome} {dettagliConto.Cliente.Nome} aperto correttamente");
-                Console.WriteLine($"Nuovo saldo del CC odienro: {dettagliConto.SaldoCorrente} euro");
 
-                scelta = AzioniSportelloCC();
-            }
-
-            if(scelta == 3)
-            {
-                dettagliConto.SaldoCorrente -= contoCorrente.Prelevamento();
-                Console.WriteLine($"Conto corrente nr. {dettagliConto.NumeroConto} intestato a: {dettagliConto.Cliente.Cognome} {dettagliConto.Cliente.Nome} aperto correttamente");
-                Console.WriteLine($"Nuovo saldo del CC odienro: {dettagliConto.SaldoCorrente} euro");
-                scelta = AzioniSportelloCC();
-            }
-
-            if (scelta == 4)
-            {
-                Console.WriteLine("Fine Operazioni Sportello Bank");
-                Console.ReadLine(); 
-            }
-
-            if(scelta > 4)
-            {
-                Console.WriteLine("Operazione sbagliata, riprovare.");
-                scelta = AzioniSportelloCC();
-            }
         }
 
+  
         static int AzioniSportelloCC()
         {
                 Console.WriteLine("==========================");
@@ -96,12 +107,12 @@ namespace B_U1_W1_D3_Esercizio
                return int.Parse(Console.ReadLine());
     }
 
-    public class ContoCorrente
+        public class ContoCorrente
         {
             public DettagliConto Conto { get; set; }
-            public double Versamento(bool controlAperturaConto) {
+            public double Versamento(bool controlAperturaConto, double numeroAccessoConto) {
                 int versamento = 0;
-                if (controlAperturaConto)
+                if (controlAperturaConto == false && numeroAccessoConto ==1)
                 {
                     Console.WriteLine("Devi necessariamente versare un tot di almeno 1000 euro");
                     Console.WriteLine("Scrivere in seguito l'importo indicato");
@@ -115,11 +126,17 @@ namespace B_U1_W1_D3_Esercizio
               
                     return versamento;
 
-                } else
+                } 
+                else if(controlAperturaConto == true && numeroAccessoConto > 1)
                 {
                     Console.WriteLine("Inserisci l'importo del versamento da effettuare");
                     versamento = int.Parse(Console.ReadLine());
                     return versamento;
+
+                } else
+                {
+                    Console.WriteLine("Operazione di versamento non consentito, poiché non é stato apperto alcun conto corrente");
+                    return 0;
                 }
             }
 
