@@ -37,7 +37,7 @@ namespace B_U1_W1_D3_Esercizio
                         Console.WriteLine("\nInserisci il cognome");
                         dettagliConto.Cliente.Cognome = Console.ReadLine();
 
-                        Console.WriteLine($"Conto corrente nr. {dettagliConto.NumeroConto} intestato a: {dettagliConto.Cliente.Cognome} {dettagliConto.Cliente.Nome} aperto correttamente");
+                        Console.WriteLine($"\nConto corrente nr. {dettagliConto.NumeroConto} intestato a: {dettagliConto.Cliente.Cognome} {dettagliConto.Cliente.Nome} aperto correttamente");
 
 
                         dettagliConto.SaldoCorrente = contoCorrente.Versamento(controlAperturaConto, numeroAccessoConto);
@@ -63,8 +63,8 @@ namespace B_U1_W1_D3_Esercizio
                     dettagliConto.SaldoCorrente += contoCorrente.Versamento(controlAperturaConto, numeroAccessoConto);
                  
 
-                    Console.WriteLine($"Conto corrente nr. {dettagliConto.NumeroConto} intestato a: {dettagliConto.Cliente.Cognome} {dettagliConto.Cliente.Nome} aperto correttamente");
-                    Console.WriteLine($"Nuovo saldo del CC odienro: {dettagliConto.SaldoCorrente} euro");
+                    Console.WriteLine($"\nConto corrente nr. {dettagliConto.NumeroConto} intestato a: {dettagliConto.Cliente.Cognome} {dettagliConto.Cliente.Nome} aperto correttamente");
+                    Console.WriteLine($"\nNuovo saldo del CC odienro: {dettagliConto.SaldoCorrente} euro");
 
                     scelta = AzioniSportelloCC();
                 }
@@ -72,20 +72,20 @@ namespace B_U1_W1_D3_Esercizio
                 if (scelta == 3)
                 {
                     dettagliConto.SaldoCorrente -= contoCorrente.Prelevamento(controlAperturaConto);
-                    Console.WriteLine($"Conto corrente nr. {dettagliConto.NumeroConto} intestato a: {dettagliConto.Cliente.Cognome} {dettagliConto.Cliente.Nome} aperto correttamente");
-                    Console.WriteLine($"Nuovo saldo del CC odienro: {dettagliConto.SaldoCorrente} euro");
+                    Console.WriteLine($"\nConto corrente nr. {dettagliConto.NumeroConto} intestato a: {dettagliConto.Cliente.Cognome} {dettagliConto.Cliente.Nome} aperto correttamente");
+                    Console.WriteLine($"\nNuovo saldo del CC odienro: {dettagliConto.SaldoCorrente} euro");
                     scelta = AzioniSportelloCC();
                 }
 
                 if (scelta == 4)
                 {
-                    Console.WriteLine("Fine Operazioni Sportello Bank");
+                    Console.WriteLine("\nFine Operazioni Sportello Bank");
                     Console.ReadLine();
                 }
 
                 if (scelta > 4)
                 {
-                    Console.WriteLine("Operazione sbagliata, riprovare.");
+                    Console.WriteLine("\nOperazione sbagliata, riprovare.");
                     scelta = AzioniSportelloCC();
                 }
             }
@@ -102,7 +102,7 @@ namespace B_U1_W1_D3_Esercizio
                 Console.WriteLine("1. APRI IL NUOVO CONTO CORRENTE");
                 Console.WriteLine("2. EFFETTUA UN VERSAMENTO");
                 Console.WriteLine("3. EFFETTUA UN PRELEVAMENTO");
-                Console.WriteLine("4. ESCI");
+                Console.WriteLine("4. ESCI\n");
 
                return int.Parse(Console.ReadLine());
     }
@@ -135,7 +135,7 @@ namespace B_U1_W1_D3_Esercizio
 
                 } else
                 {
-                    Console.WriteLine("Operazione di versamento non consentito, poiché non é stato apperto alcun conto corrente");
+                    Console.WriteLine("\nOperazione di versamento non consentito, poiché non é stato aperto alcun conto corrente");
                     return 0;
                 }
             }
@@ -159,7 +159,7 @@ namespace B_U1_W1_D3_Esercizio
             public void CheckAperturaConto(bool controlAperturaConto) {
                 if (controlAperturaConto)
                 {
-                    Console.WriteLine("Non é possibile aprire piú di un conto corrente");
+                    Console.WriteLine("\nNon é possibile aprire piú di un conto corrente");
                 }
             }
 
