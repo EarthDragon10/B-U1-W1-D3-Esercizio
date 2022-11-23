@@ -55,7 +55,7 @@ namespace B_U1_W1_D3_Esercizio
 
                 if (scelta == 2)
                 {
-                    if (dettagliConto.SaldoCorrente > 0)
+                    if (controlAperturaConto == true)
                     {
                         numeroAccessoConto += 1;
                     }
